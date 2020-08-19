@@ -1,7 +1,9 @@
+variable "vpc_id" {}
+
 resource "aws_security_group" "dmz_sg" {
   name        = "dmz_sg"
   description = "DMZ Securtiy Group"
-  vpc_id      = aws_vpc.main_vpc.id
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "HTTPS protocol"
@@ -45,4 +47,8 @@ resource "aws_security_group" "dmz_sg" {
   tags = {
     Name = "dmz_sg"
   }
+}
+
+output "sg_dmz_id" {
+    value = aws_security_group.dmz_sg.id
 }
